@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,14 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //public API
-Route::apiResource('products', ProductController::class)->only(['index', 'show']);
-Route::get('/products/search/{name}', [ProductController::class, 'search']);
+Route::apiResource('books', BookController::class)->only(['index', 'show']);
+Route::get('/books/search/{name}', [BookController::class, 'search']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 //protected API
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('products', ProductController::class)->except(['index', 'show']);
+    Route::apiResource('books', BookController::class)->except(['index', 'show']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 

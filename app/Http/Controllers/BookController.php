@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ProductController extends Controller
+class BookController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::all();
+        return Book::all();
     }
 
     /**
@@ -27,11 +27,17 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'slug' => 'required',
-            'price' => 'required',
+            'subcategory_id' => 'required|integer',
+            'name' => 'required|string',
+            'slug' => 'required|string',
+            'author' => 'required|string',
+            'publisher' => 'required|string',
+            'publish_date' => 'required|date',
+            'price' => 'required|integer',
+            'quantity' => 'required|integer',
+            'status' => 'required',
         ]);
-        return Product::create($request->all());
+        return Book::create($request->all());
     }
 
     /**
@@ -42,7 +48,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return Product::find($id);
+        return Book::find($id);
     }
 
     /**
@@ -54,7 +60,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = Product::find($id);
+        $product = Book::find($id);
         $product->update($request->all());
         return $product;
     }
@@ -67,7 +73,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        return Product::destroy($id);
+        return Book::destroy($id);
     }
 
     /**
@@ -78,6 +84,6 @@ class ProductController extends Controller
      */
     public function search($name)
     {
-        return Product::where([['name', 'like', '%' . $name . '%']])->get();
+        return Book::where([['name', 'like', '%' . $name . '%']])->get();
     }
 }
