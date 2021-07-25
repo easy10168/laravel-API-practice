@@ -57,7 +57,7 @@ class AuthController extends Controller
                 'message' => '該信箱不存在或者密碼錯誤'
             ], 401);
         }
-
+        $user->tokens()->delete();
         $token = $user->createToken('myapptoken')->plainTextToken;
 
         $response = [
