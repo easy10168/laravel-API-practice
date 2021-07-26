@@ -29,6 +29,7 @@ class BookFactory extends Factory
         $status = 'in_stock';
         if ($quantity == 0) $status = 'out_of_stock';
         if ($quantity < 10) $status = 'running_low';
+
         return [
             'subcategory_id' => Subcategory::inRandomOrder()->first()->id,
             'name' => $name,

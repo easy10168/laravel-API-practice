@@ -9,8 +9,13 @@ class Category extends Model
 {
     use HasFactory;
 
-    public function subCategory()
+    public function subCategories()
     {
         return $this->hasMany(Subcategory::class);
+    }
+
+    public function books()
+    {
+        return $this->hasManyThrough(Book::class, Subcategory::class);
     }
 }
