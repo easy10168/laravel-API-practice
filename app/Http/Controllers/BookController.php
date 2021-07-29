@@ -27,15 +27,15 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'subcategory_id' => 'required|integer',
-            'name' => 'required|string',
-            'slug' => 'required|string',
-            'author' => 'required|string',
-            'publisher' => 'required|string',
-            'publish_date' => 'required|date',
-            'price' => 'required|integer',
-            'quantity' => 'required|integer',
-            'status' => 'required',
+            'subcategory_id' => ['required', 'integer'],
+            'name' => ['required', 'string'],
+            'slug' => ['required', 'string'],
+            'author' => ['required', 'string'],
+            'publisher' => ['required', 'string'],
+            'publish_date' => ['required', 'date'],
+            'price' => ['required', 'integer'],
+            'quantity' => ['required', 'integer'],
+            'status' => ['required'],
         ]);
         return Book::create($request->all());
     }

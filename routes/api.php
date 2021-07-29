@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartItemController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,10 +25,8 @@ Route::post('/login', [AuthController::class, 'login']);
 
 //protected API
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('books', BookController::class)->except(['index', 'show']);
+    Route::apiResource('/books', BookController::class)->except(['index', 'show']);
+    Route::apiResource('/carts', CartController::class);
+    Route::apiResource('/cart-items', CartItemController::class);
     Route::post('/logout', [AuthController::class, 'logout']);
-});
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
 });
