@@ -131,6 +131,16 @@ namespace App\Models{
 /**
  * App\Models\Order
  *
+ * @property int $id
+ * @property int $user_id
+ * @property int $cart_id
+ * @property string $status 狀態：pending待處理、is_shipping運送中、finished訂單完成、canceled訂單取消
+ * @property string $email 收件者信箱
+ * @property string $phone 收件者電話
+ * @property string $address 收件地址
+ * @property string $comment 備註
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\OrderItem|null $cart
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OrderItem[] $orderItems
  * @property-read int|null $order_items_count
@@ -138,6 +148,16 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereCartId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereComment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
  */
 	class Order extends \Eloquent {}
 }
@@ -146,11 +166,27 @@ namespace App\Models{
 /**
  * App\Models\OrderItem
  *
+ * @property int $id
+ * @property int $book_id
+ * @property int $order_id
+ * @property string $name 商品名稱
+ * @property int $price 購買價
+ * @property int $quantity 購買數量
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Order $book
  * @property-read \App\Models\Order $order
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItem newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItem newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItem query()
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderItem whereBookId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderItem whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderItem whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderItem whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderItem whereOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderItem wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderItem whereQuantity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderItem whereUpdatedAt($value)
  */
 	class OrderItem extends \Eloquent {}
 }

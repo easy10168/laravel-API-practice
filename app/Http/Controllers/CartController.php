@@ -27,12 +27,21 @@ class CartController extends Controller
         return response(['data' => $cart]);
     }
 
-    public function checkout()
+    public function checkout(Request $resquest)
     {
+        $validatedRequest = $resquest->validate(
+            [
+                'name' => ['required', 'string'],
+                'email' => ['required', 'email'],
+                'phone' => ['required', 'numeric', 'digits:10'],
+                'address' => ['required', 'string'],
+                'comment' => ['string'],
+            ]
+        );
         $user = Auth::user();
-        $cart = $user->carts()->with('checkouted', false)->first();
+        $cart = $user->carts()->where('checkouted', false)->first();
         if ($cart) {
-            $result = $cart->checkout();
+            $result = $cart->checkout($validatedRequest);
             return response($result);
         } else {
             return response('沒有購物車', 400);

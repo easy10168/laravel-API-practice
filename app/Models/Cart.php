@@ -67,9 +67,9 @@ class Cart extends Model
                     'quantity' => $cartItem->book->quantity - $cartItem->quantity,
                 ]);
                 $order->orderItems()->create([
-                    'name' => $cartItem->name,
+                    'name' => $cartItem->book->name,
                     'book_id' => $cartItem->book_id,
-                    'price' => $cartItem->price,
+                    'price' => $cartItem->book->price,
                     'quantity' => $cartItem->quantity,
                 ]);
             }
@@ -79,9 +79,10 @@ class Cart extends Model
             ]);
 
             DB::commit();
-            return response($order, 200);
+            return $order;
         } catch (\Throwable $th) {
             DB::rollBack();
+            dd($th);
             return response('訂購出錯，請聯絡客服', 400);
         }
     }
