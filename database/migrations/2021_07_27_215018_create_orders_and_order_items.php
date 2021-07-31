@@ -43,6 +43,7 @@ class CreateOrdersAndOrderItems extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders_and_order_items');
+        Schema::dropIfExists('order_items');
+        Schema::dropIfExists('orders');
     }
 }

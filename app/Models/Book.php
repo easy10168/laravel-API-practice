@@ -10,6 +10,7 @@ class Book extends Model
 {
     use HasFactory;
 
+    protected $guarded = [''];
     protected $hidden = ['updated_at'];
     protected $appends = ['subcategory_name'];
 

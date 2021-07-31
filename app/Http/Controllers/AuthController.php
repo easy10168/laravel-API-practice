@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -24,7 +25,7 @@ class AuthController extends Controller
             'password' => Hash::make($validatedRequest['password']),
         ]);
 
-        $token = $user->createToken('myapptoken')->plainTextToken;
+        $token = $user->createToken('myapptoken', ['role:user'])->plainTextToken;
 
         $response = [
             'user' => $user,
@@ -58,10 +59,59 @@ class AuthController extends Controller
             ], 401);
         }
         $user->tokens()->delete();
-        $token = $user->createToken('myapptoken')->plainTextToken;
+        $token = $user->createToken('myapptoken', ['role:user'])->plainTextToken;
 
         $response = [
             'user' => $user,
+            'token' => $token
+        ];
+
+        return response($response, 201);
+    }
+
+    public function adminRegister(Request $request)
+    {
+        $validatedRequest = $request->validate([
+            'name' => ['required', 'string'],
+            'account' => ['required', 'string', 'unique:admins'],
+            'password' => ['required', 'string', 'confirmed']
+        ]);
+
+        $user = Admin::create([
+            'name' => $validatedRequest['name'],
+            'account' => $validatedRequest['account'],
+            'password' => Hash::make($validatedRequest['password']),
+        ]);
+
+        $token = $user->createToken('myapptoken', ['role:admin'])->plainTextToken;
+
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+        return response($response, 201);
+    }
+
+    public function adminLogin(Request $request)
+    {
+        $validatedRequest = $request->validate([
+            'account' => 'required|string',
+            'password' => 'required|string'
+        ]);
+
+        $admin = Admin::where([['account', $validatedRequest['account']]])->first();
+
+        if (!$admin || !Hash::check($validatedRequest['password'], $admin->password)) {
+            return response([
+                'message' => '該帳號不存在或者密碼錯誤'
+            ], 401);
+        }
+        $admin->tokens()->delete();
+        $token = $admin->createToken('myapptoken', ['role:admin'])->plainTextToken;
+
+        $response = [
+            'admin' => $admin,
             'token' => $token
         ];
 
