@@ -62,14 +62,17 @@ namespace App\Models{
  * @property string $status out_of_stock：庫存不足，in_stock：庫存充足，running_low：庫存稀少(<10)
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read mixed $subcategory_name
  * @property-read \App\Models\Subcategory $subcategory
  * @method static \Database\Factories\BookFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Book newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Book newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Book onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Book query()
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereAuthor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Book whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereName($value)
@@ -81,6 +84,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereSubcategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Book withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Book withoutTrashed()
  */
 	class Book extends \Eloquent {}
 }
@@ -153,11 +158,14 @@ namespace App\Models{
  * @method static \Database\Factories\CategoryFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Category onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Category query()
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
  */
 	class Category extends \Eloquent {}
 }
@@ -252,12 +260,15 @@ namespace App\Models{
  * @method static \Database\Factories\SubcategoryFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Subcategory newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Subcategory newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Subcategory onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Subcategory query()
  * @method static \Illuminate\Database\Eloquent\Builder|Subcategory whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subcategory whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subcategory whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subcategory whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subcategory whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Subcategory withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Subcategory withoutTrashed()
  */
 	class Subcategory extends \Eloquent {}
 }
