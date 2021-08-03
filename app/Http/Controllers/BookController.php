@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        return Book::paginate(20);
+        return BookResource::collection(Book::with(['subcategory'])->paginate(20));
     }
 
     /**
@@ -48,7 +49,8 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        return Book::find($id);
+        // return Book::find($id);
+        return new BookResource(Book::find($id));
     }
 
     /**

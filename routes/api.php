@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubcategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 */
 //public API
 Route::apiResource('books', BookController::class)->only(['index', 'show']);
+Route::apiResource('categories', CategoryController::class)->only(['index', 'show']);
+Route::apiResource('subcategories', SubcategoryController::class)->only(['index', 'show']);
 Route::get('/books/search/{name}', [BookController::class, 'search']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -41,6 +45,8 @@ Route::prefix('admin')->group(function () {
     Route::middleware(['auth:sanctum', 'auth.role.admin'])->group(
         function () {
             Route::apiResource('/books', BookController::class)->except(['index', 'show']);
+            Route::apiResource('/categories', CategoryController::class)->except(['index', 'show']);
+            Route::apiResource('/subcategories', SubcategoryController::class)->except(['index', 'show']);
         }
     );
 });
