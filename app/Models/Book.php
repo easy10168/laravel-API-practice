@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 use \Znck\Eloquent\Traits\BelongsToThrough;
 
 class Book extends Model
@@ -13,7 +14,7 @@ class Book extends Model
 
     protected $guarded = [''];
     protected $hidden = ['updated_at'];
-    protected $appends = ['subcategory_name'];
+    protected $appends = ['subcategory_name', 'image_url'];
 
     public function subcategory()
     {
@@ -34,4 +35,17 @@ class Book extends Model
     // {
     //     return $this->subcategory()->first()->category()->first()->name;
     // }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'attachable');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        $images = $this->images;
+        if ($images->isNotEmpty()) {
+            return Storage::url($images->last()->path);
+        }
+    }
 }

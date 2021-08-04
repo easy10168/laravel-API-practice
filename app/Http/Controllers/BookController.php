@@ -37,8 +37,16 @@ class BookController extends Controller
             'price' => ['required', 'integer'],
             'quantity' => ['required', 'integer'],
             'status' => ['required'],
+            'image' => ['required', 'file']
         ]);
-        return Book::create($request->all());
+
+        $image = $request->image;
+        $book = Book::create($request->except('image'));
+        $book->images()->create([
+            'file_name' => $image->getClientOriginalName(),
+            'path' => $image->store('public/images'),
+        ]);
+        return $book;
     }
 
     /**

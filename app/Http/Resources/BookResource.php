@@ -27,7 +27,8 @@ class BookResource extends JsonResource
             'price' => $this->price,
             'quantity' => $this->quantity,
             'status' => $this->status,
-            'subcategory' => new SubcategoryResource($this->subcategory)
+            'subcategory' => new SubcategoryResource($this->subcategory),
+            'image_path' => $this->image_url,
         ];
     }
 }
