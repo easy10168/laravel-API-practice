@@ -28,3 +28,5 @@ php artisan migrate --seed
 ```bash
 php artisan serve
 ```
+## 資料庫設計
+![DB架構](./db-schema.png)
